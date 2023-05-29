@@ -4,10 +4,10 @@
 listening_sockets=$(ss -tlnp)
 
 while IFS= read -r line; do
-  pid=$(echo "$line" | awk '{print $NF}' | awk -F '[=/]' '{print $2}')
-  port=$(echo "$line" | awk '{print $4}' | awk -F ':' '{print $NF}')
+  pid=$(echo "$line" | awk '{print $2}' | awk -F '[=/]' '{print $2}')
+  port=$(echo "$line" | awk '{print $5}' | awk -F ':' '{print $NF}')
   program=$(basename "$(readlink -f "/proc/$pid/exe")")
 
-  echo "PID: $pid, Program: $program, Port: $port"
+  echo "PID: $pid, Programme: $program, Port: $port"
 
 done <<< "$listening_sockets"
